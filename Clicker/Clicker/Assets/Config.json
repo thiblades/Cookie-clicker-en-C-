@@ -1,0 +1,11 @@
+﻿{
+  "GameName" :  "Cookie Clicker",
+  "VSyncEnabled" :  true,
+  "FrameRate" :  60,
+  "Resolution" :  {
+    "Width" :  1920,
+    "Height" :  1080,
+    "FullScreen" :  false
+  }
+}
+
