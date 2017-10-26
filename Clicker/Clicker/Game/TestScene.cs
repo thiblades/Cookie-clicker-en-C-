@@ -1,18 +1,29 @@
 ﻿using System;
 
-using Clicker.Engine;
+using SFML.System;
 using SFML.Graphics;
+
+using Clicker.Engine.Public;
 
 namespace Clicker.Game {
     public class TestScene : Scene {
         public TestScene() {
         }
 
-        void Scene.Display(RenderTarget target) {
+        override public void Load(IProgressReport pr) {
+
+        }
+
+        override public void Update(float dt){
+            
+        }
+
+        override public void Render(RenderTarget target){
             target.Clear(Color.Cyan);
         }
 
-        void Scene.Update(RenderTarget target) {
+        override public void Layout(Vector2u newSize){
+            
         }
     }
 }
