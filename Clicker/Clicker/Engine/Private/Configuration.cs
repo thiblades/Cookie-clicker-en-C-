@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 using System.IO;
 
-namespace Clicker.Engine {
+namespace Clicker.Engine.Private {
     public class Configuration {
         public const string Path = "Assets/Config.json";
 
@@ -14,8 +14,8 @@ namespace Clicker.Engine {
             public bool FullScreen { get; set; }
         }
 
-        // Name of the game, displayed in the window.
-        public string GameName { get; set; }
+        // The name of the class to load as game
+        public string GameClass { get; set; }
 
         // Whether or not to synchronize rendering to the target monitor's
         // VBLANK signal.
