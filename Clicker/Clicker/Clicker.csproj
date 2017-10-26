@@ -23,6 +23,8 @@
     <Folder Include="Assets\" />
     <Folder Include="Engine\" />
     <Folder Include="Game\" />
+    <Folder Include="Engine\Public\" />
+    <Folder Include="Engine\Private\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
