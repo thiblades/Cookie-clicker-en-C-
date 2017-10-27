@@ -63,7 +63,7 @@ namespace Clicker.Engine.Private {
             gameWindow.Open(game.Name);
 
             // Load the loading scene, and display it ASAP.
-            loadingScene = new LoadingScene();
+            loadingScene = new LoadingScene(game);
             loadingScene.Instance = this;
             loadingScene.Load(new DummyProgressReport());
             loadingScene.Layout(gameWindow.Size);

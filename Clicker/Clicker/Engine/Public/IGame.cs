@@ -5,6 +5,9 @@ namespace Clicker.Engine.Public {
         // The name of the game, displayed in the title bar (if any).
         string Name { get; }
 
+        // The path to the logo of the game, displayed on the loading screen.
+        string Logo { get;  }
+
         // Called when initially loading. Do initial loading here.
         void InitialLoad(IProgressReport progressReport);
 

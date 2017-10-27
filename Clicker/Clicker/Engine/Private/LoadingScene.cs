@@ -10,6 +10,7 @@ namespace Clicker.Engine.Private {
         private string message = "";
         private float progress = 0;
 
+        private string logoPath = null;
         private Text loadingText = null;
         private Sprite logoSprite = null;
         private RectangleShape progressBar = null;
@@ -17,7 +18,8 @@ namespace Clicker.Engine.Private {
 
         public static int PROGRESS_BAR_HEIGHT = 12;
 
-        public LoadingScene() {
+        public LoadingScene(IGame game) {
+            logoPath = game.Logo;
         }
 
         public void SetDisplay(float progressRatio, string msg){
@@ -43,7 +45,7 @@ namespace Clicker.Engine.Private {
             loadingText.CharacterSize = 24;
 
             // Load the logo we'll be displaying
-            Texture texture = new Texture("Assets/Logo.png");
+            Texture texture = new Texture(logoPath);
             texture.Repeated = false;
             texture.Smooth = true;
             logoSprite = new Sprite(texture);

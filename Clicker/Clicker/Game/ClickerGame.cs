@@ -29,5 +29,11 @@ namespace Clicker.Game {
                 return "Cookie Clicker";
             }
         }
+
+        string IGame.Logo {
+            get {
+                return "Assets/Logo.png";
+            }
+        }
     }
 }
