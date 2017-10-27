@@ -170,8 +170,13 @@ namespace Clicker.Engine.Private {
         }
 
         public void Run(){
+            // Run the main game loop.
             while( gameWindow.IsOpen )
                 gameWindow.Update();
+
+            // Let the game finalize itself.
+            if( game != null )
+                game.Quit();
         }
 
         static void Main(string[] args){

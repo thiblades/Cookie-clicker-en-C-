@@ -20,6 +20,10 @@ namespace Clicker.Game {
             pr.ReportProgress(1.00f, "REMEMBER THAT NAME");
         }
 
+        void IGame.Quit(){
+            
+        }
+
         Scene IGame.CreateInitialScene() {
             return new TestScene();
         }

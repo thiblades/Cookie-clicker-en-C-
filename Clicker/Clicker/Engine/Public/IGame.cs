@@ -14,6 +14,7 @@ namespace Clicker.Engine.Public {
         // Returns the scene that is displayed right after the loading screen ends.
         Scene CreateInitialScene();
 
-        // TODO: OnClose (so we can save the score on exit)
+        // Called when the game is closed normally.
+        void Quit();
     }
 }
