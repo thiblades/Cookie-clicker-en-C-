@@ -19,8 +19,20 @@ namespace Clicker.Engine {
 
         // Main game loop.
         private void Run(){
-            // Read the configuration
-            configuration = Configuration.Read();
+
+            // Read the configuration or exit application
+            try
+            {
+                configuration = Configuration.Read();
+                // TEST : Try saving configuration or exit application
+                //Configuration.Write(configuration);
+            }
+            catch (Exception exc)
+            {
+                // TODO : Make proper logging
+                Console.Error.WriteLine(exc.Message);
+                Environment.Exit(-1);
+            }
 
             // Prepare the loading scene.
             loadingScene = new LoadingScene();

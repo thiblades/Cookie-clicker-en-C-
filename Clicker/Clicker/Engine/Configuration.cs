@@ -1,8 +1,7 @@
 ﻿using System;
 
-using Microsoft.Extensions.Configuration;
-
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Clicker.Engine {
     public class Configuration {
@@ -26,19 +25,80 @@ namespace Clicker.Engine {
 
         public ResolutionConfig Resolution { get; set; }
 
-        // Read the values from the configuration file
-        public static Configuration Read(){
-            // Open the configuration file.
-            IConfigurationBuilder configBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(Path, optional:false, reloadOnChange:true);
-            
-            IConfigurationRoot config = configBuilder.Build();
+        /// <summary>
+        ///  Read the values from the configuration file
+        /// </summary>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="DirectoryNotFoundException"></exception>
+        /// <exception cref="IOException"></exception>
+        /// <exception cref="JsonSerializationException"></exception>
+        /// <exception cref="JsonException"></exception>
+        public static Configuration Read()
+        {
+            JsonSerializerSettings jsonSerializerSettings = InitJsonSerializerSettings();
 
-            // Now read the configuration.
-            Configuration result = new Configuration();
-            config.Bind(result);
+            JsonSerializer serializer = JsonSerializer.Create(jsonSerializerSettings);
+
+            StreamReader stream;
+            JsonTextReader jsonText;
+            Configuration result;
+            using (stream = new StreamReader(Path))
+            using (jsonText = new JsonTextReader(stream))
+            {
+                // Now read the configuration.
+                result = serializer.Deserialize<Configuration>(jsonText);
+            }
+
             return result;
+        }
+
+        /// <summary>
+        ///  Write values to the configuration file
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="DirectoryNotFoundException"></exception>
+        /// <exception cref="PathTooLongException"></exception>
+        /// <exception cref="IOException"></exception>
+        /// <exception cref="System.Security.SecurityException"></exception>
+        /// <exception cref="JsonSerializationException"></exception>
+        /// <exception cref="JsonException"></exception>
+        public static void Write(Configuration configuration)
+        {
+            JsonSerializerSettings jsonSerializerSettings = InitJsonSerializerSettings();
+
+            JsonSerializer serializer = JsonSerializer.Create(jsonSerializerSettings);
+
+            StreamWriter stream;
+            JsonTextWriter jsonText;
+            using (stream = new StreamWriter(Path))
+            using (jsonText = new JsonTextWriter(stream))
+            {
+                // Now write the configuration.
+                serializer.Serialize(jsonText, configuration);
+            }
+
+        }
+
+        /// <summary>
+        ///  Initialize <see cref="JsonSerializerSettings"/> properly
+        /// </summary>
+        private static JsonSerializerSettings InitJsonSerializerSettings()
+        {
+            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+            // If a member is not present during deserialization, throw an Exception
+            jsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Error;
+            // Always serialize and deserialize null values
+            jsonSerializerSettings.NullValueHandling = NullValueHandling.Include;
+            // Add the default value during serialization
+            jsonSerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
+            // Add indentation for readability
+            jsonSerializerSettings.Formatting = Formatting.Indented;
+
+            return jsonSerializerSettings;
         }
     }
 }
