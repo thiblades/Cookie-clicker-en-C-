@@ -48,7 +48,7 @@ namespace Clicker.GameKit {
 
         private const uint TITLE_SIZE = 100;
         private const uint OPTION_SIZE = 50;
-        private const float MARGIN = 30;
+        private const float MARGIN = 40;
         private const float TITLE_MARGIN = 30;
 
         private BackgroundImage background;
@@ -151,13 +151,32 @@ namespace Clicker.GameKit {
             }
         }
 
-        public override void OnMouseMove(MouseMoveEventArgs e) {
-            for( uint i = 0; i < items.Length; ++i ){
+        private int itemUnderMouse(float x, float y){
+            for( uint i = 0; i < items.Length; ++i ) {
                 FloatRect boundingRect = itemsInfo[i].text.GetGlobalBounds();
 
-                if( boundingRect.Contains(e.X, e.Y) )
-                    selectedItem = i;
+                if( boundingRect.Contains(x, y) )
+                    return (int) i;
             }
+
+            return -1;
+        }
+
+        public override void OnMouseMove(MouseMoveEventArgs e) {
+            int item = itemUnderMouse(e.X, e.Y);
+
+            if( item != -1 )
+                selectedItem = (uint) item;
+        }
+
+        public override void OnMouseUp(MouseButtonEventArgs e){
+            if( e.Button != Mouse.Button.Left )
+                return;
+
+            int item = itemUnderMouse(e.X, e.Y);
+
+            if( item != -1 )
+                items[item].onSelect();
         }
     }
 }
