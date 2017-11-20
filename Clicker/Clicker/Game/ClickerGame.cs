@@ -30,5 +30,13 @@ namespace Clicker.Game {
                 return "Assets/Logo.png";
             }
         }
+
+        public void StartNewGame(){
+            Instance.SwitchToScene(new GameplayScene());
+        }
+
+        public void LoadLastGame(){
+            
+        }
     }
 }
