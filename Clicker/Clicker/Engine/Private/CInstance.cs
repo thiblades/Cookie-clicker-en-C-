@@ -229,13 +229,18 @@ namespace Clicker.Engine.Private {
         }
 
         static void Main(string[] args){
-            // Name the main thread.
-            Thread.CurrentThread.Name = "Main Loop";
+            try {
+                // Name the main thread.
+                Thread.CurrentThread.Name = "Main Loop";
 
-            // Create a game instance
-            CInstance instance = new CInstance();
-            instance.Initialize();
-            instance.Run();
+                // Create a game instance
+                CInstance instance = new CInstance();
+                instance.Initialize();
+                instance.Run();
+            } catch( Exception e ){
+                Console.WriteLine("Erreur: " + e.Message);
+                while( true ) ;
+            }
         }
     }
 }

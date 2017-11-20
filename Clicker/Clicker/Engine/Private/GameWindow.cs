@@ -74,6 +74,10 @@ namespace Clicker.Engine.Private {
             window.Close();
         }
 
+        public bool HasScene(){
+            return currentScene != null;
+        }
+
         public bool IsOpen {
             get {
                 return window.IsOpen;
@@ -83,6 +87,12 @@ namespace Clicker.Engine.Private {
         public Vector2u Size {
             get {
                 return window.Size;
+            }
+        }
+
+        public RenderWindow Window {
+            get {
+                return window;
             }
         }
     }
