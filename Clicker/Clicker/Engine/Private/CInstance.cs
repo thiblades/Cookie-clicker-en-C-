@@ -3,6 +3,7 @@ using System.Threading;
 using System.Reflection;
 
 using SFML.System;
+using SFML.Window;
 
 using Clicker.Engine.Public;
 
@@ -50,6 +51,53 @@ namespace Clicker.Engine.Private {
             return (IGame) Activator.CreateInstance(gameClass);
         }
 
+        private void InitializeEvents() {
+            gameWindow.Window.KeyPressed += (object sender, KeyEventArgs e) => {
+                if( gameWindow.HasScene() )
+                    gameWindow.Scene.OnKeyDown(e);
+            };
+
+            gameWindow.Window.KeyReleased += (object sender, KeyEventArgs e) => {
+                if( gameWindow.HasScene() )
+                    gameWindow.Scene.OnKeyUp(e);
+            };
+
+            gameWindow.Window.MouseMoved += (object sender, MouseMoveEventArgs e) => {
+                if( gameWindow.HasScene() )
+                    gameWindow.Scene.OnMouseMove(e);
+            };
+
+            gameWindow.Window.MouseButtonPressed += (object sender, MouseButtonEventArgs e) => {
+                if( gameWindow.HasScene() )
+                    gameWindow.Scene.OnMouseDown(e);
+            };
+
+            gameWindow.Window.MouseButtonReleased += (object sender, MouseButtonEventArgs e) => {
+                if( gameWindow.HasScene() )
+                    gameWindow.Scene.OnMouseUp(e);
+            };
+
+            gameWindow.Window.MouseWheelMoved += (object sender, MouseWheelEventArgs e) => {
+                if( gameWindow.HasScene() )
+                    gameWindow.Scene.OnMouseWheel(e);
+            };
+
+            gameWindow.Window.MouseEntered += (object sender, EventArgs e) => {
+                if( gameWindow.HasScene() )
+                    gameWindow.Scene.OnMouseEnter();
+            };
+
+            gameWindow.Window.MouseLeft += (object sender, EventArgs e) => {
+                if( gameWindow.HasScene() )
+                    gameWindow.Scene.OnMouseLeave();
+            };
+
+            gameWindow.Window.TextEntered += (object sender, TextEventArgs e) => {
+                if( gameWindow.HasScene() )
+                    gameWindow.Scene.OnTextEntered(e);
+            };
+        }
+
         private void Initialize(){
             // Read the configuration, and use the default configuration if
             // we can't read the config file.
@@ -61,6 +109,7 @@ namespace Clicker.Engine.Private {
             // Create the game window
             gameWindow = new GameWindow(configuration);
             gameWindow.Open(game.Name);
+            InitializeEvents();
 
             // Load the loading scene, and display it ASAP.
             loadingScene = new LoadingScene(game);

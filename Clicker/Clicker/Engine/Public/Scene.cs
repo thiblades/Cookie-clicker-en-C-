@@ -22,5 +22,16 @@ namespace Clicker.Engine.Public {
 
         // Called each time a frame needs to be displayed.
         public abstract void Render(RenderTarget target);
+
+        // Events
+        public virtual void OnKeyUp(KeyEventArgs e){}
+        public virtual void OnKeyDown(KeyEventArgs e){}
+        public virtual void OnTextEntered(TextEventArgs e) { }
+        public virtual void OnMouseUp(MouseButtonEventArgs e){}
+        public virtual void OnMouseDown(MouseButtonEventArgs e){}
+        public virtual void OnMouseMove(MouseMoveEventArgs e){}
+        public virtual void OnMouseWheel(MouseWheelEventArgs e){}
+        public virtual void OnMouseEnter(){}
+        public virtual void OnMouseLeave(){}
     }
 }
