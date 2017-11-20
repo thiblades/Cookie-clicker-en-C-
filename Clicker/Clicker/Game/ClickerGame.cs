@@ -9,15 +9,6 @@ namespace Clicker.Game {
         }
 
         void IGame.InitialLoad(IProgressReport pr) {
-            pr.ReportProgress(0.00f, "Doing stuff");
-            Thread.Sleep(1000);
-            pr.ReportProgress(0.25f, "You picked the wrong house fool!");
-            Thread.Sleep(1000);
-            pr.ReportProgress(0.50f, "Extra dip I'll have extra dip");
-            Thread.Sleep(1000);
-            pr.ReportProgress(0.75f, "Fucker Big Smoke");
-            Thread.Sleep(1000);
-            pr.ReportProgress(1.00f, "REMEMBER THAT NAME");
         }
 
         void IGame.Quit(){
@@ -25,7 +16,7 @@ namespace Clicker.Game {
         }
 
         Scene IGame.CreateInitialScene() {
-            return new TestScene();
+            return new MainMenuScene();
         }
 
         string IGame.Name {
