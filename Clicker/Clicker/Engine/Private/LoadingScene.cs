@@ -18,7 +18,7 @@ namespace Clicker.Engine.Private {
 
         public static int PROGRESS_BAR_HEIGHT = 12;
 
-        public LoadingScene(IGame game) {
+        public LoadingScene(Public.Game game) {
             logoPath = game.Logo;
         }
 

@@ -26,11 +26,11 @@ namespace Clicker.Engine.Private {
         private State           state           = State.Initializing;
         private Configuration   configuration   = null;
         private GameWindow      gameWindow      = null;
-        private IGame           game            = null;
+        private Public.Game     game            = null;
         private LoadingScene    loadingScene    = null;
         //private Thread          workerThread    = null;
 
-        private IGame CreateGameInstance(){
+        private Public.Game CreateGameInstance(){
             Type gameClass = Type.GetType(configuration.GameClass);
 
             if( !gameClass.IsClass ) {
@@ -43,12 +43,12 @@ namespace Clicker.Engine.Private {
                 Environment.Exit(1);
             }
 
-            if( !typeof(IGame).IsAssignableFrom(gameClass) ) {
-                Console.WriteLine("Error: " + gameClass.FullName + " does not implement IGame");
+            if( !typeof(Public.Game).IsAssignableFrom(gameClass) ) {
+                Console.WriteLine("Error: " + gameClass.FullName + " does not implement Game");
                 Environment.Exit(1);
             }
 
-            return (IGame) Activator.CreateInstance(gameClass);
+            return (Public.Game) Activator.CreateInstance(gameClass);
         }
 
         private void InitializeEvents() {
@@ -105,6 +105,7 @@ namespace Clicker.Engine.Private {
 
             // Create the game object.
             game = CreateGameInstance();
+            game.Instance = this;
 
             // Create the game window
             gameWindow = new GameWindow(configuration);
@@ -183,6 +184,12 @@ namespace Clicker.Engine.Private {
         Vector2u IInstance.TargetSize {
             get {
                 return gameWindow.Size;
+            }
+        }
+
+        Public.Game IInstance.Game {
+            get {
+                return game;
             }
         }
 

@@ -4,28 +4,28 @@ using System.Threading;
 using Clicker.Engine.Public;
 
 namespace Clicker.Game {
-    public class ClickerGame : IGame {
+    public class ClickerGame : Engine.Public.Game {
         public ClickerGame() {
         }
 
-        void IGame.InitialLoad(IProgressReport pr) {
+        public override void InitialLoad(IProgressReport pr) {
         }
 
-        void IGame.Quit(){
+        public override void Quit(){
             
         }
 
-        Scene IGame.CreateInitialScene() {
+        public override Scene CreateInitialScene() {
             return new MainMenuScene();
         }
 
-        string IGame.Name {
+        public override string Name {
             get {
                 return "Cookie Clicker";
             }
         }
 
-        string IGame.Logo {
+        public override string Logo {
             get {
                 return "Assets/Logo.png";
             }
