@@ -8,5 +8,9 @@ namespace Clicker.GameKit {
         public void Frame(float dt){
             t += dt;
         }
+
+        public void Reset(){
+            t = 0;
+        }
     }
 }
