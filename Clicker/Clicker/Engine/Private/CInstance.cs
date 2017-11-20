@@ -179,6 +179,7 @@ namespace Clicker.Engine.Private {
 
             Thread workerThread = new Thread(start);
             workerThread.Name = "Scene Load";
+            workerThread.Start();
         }
 
         Vector2u IInstance.TargetSize {
