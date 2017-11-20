@@ -12,5 +12,6 @@ namespace Clicker.Engine.Public {
 
         // Retrieve the size of the current display
         Vector2u TargetSize { get; }
+        Public.Game Game { get;  }
     }
 }
