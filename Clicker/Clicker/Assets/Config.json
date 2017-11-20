@@ -1,5 +1,5 @@
 ﻿{
-  "GameName" :  "Cookie Clicker",
+  "GameClass" :  "Clicker.Game.ClickerGame",
   "VSyncEnabled" :  true,
   "FrameRate" :  60,
   "Resolution" :  {
