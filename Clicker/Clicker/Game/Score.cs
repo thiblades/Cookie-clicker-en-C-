@@ -1,34 +1,41 @@
-﻿using System;
-
-using System.IO;
+﻿using Clicker.Engine.Public;
 using Newtonsoft.Json;
-using Clicker.Engine.Public;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
-namespace Clicker.Engine.Private {
-    public class Configuration : AJsonSerializable
+namespace Clicker.Game
+{
+    /// <summary>
+    /// Manage the score
+    /// Can be [un]serialized
+    /// </summary>
+    public class Score : AJsonSerializable
     {
-        public const string Path = "Assets/Config.json";
 
-        public class ResolutionConfig {
-            public uint Width { get; set;  }
-            public uint Height { get; set;  }
-            public bool FullScreen { get; set; }
+        public decimal PlayerScore { get; set; }
+
+        public const string Path = "Assets/Save.json";
+
+        public Score()
+        {
+            PlayerScore = 0;
         }
 
-        // The name of the class to load as game
-        public string GameClass { get; set; }
+        public decimal Add(decimal value)
+        {
+            return PlayerScore += value;
+        }
 
-        // Whether or not to synchronize rendering to the target monitor's
-        // VBLANK signal.
-        public bool VSyncEnabled { get; set; }
+        public override string ToString()
+        {
+            return "Score : " + PlayerScore;
+        }
 
-        // Framerate at which to perform updates.
-        public uint Framerate { get; set; }
-
-        public ResolutionConfig Resolution { get; set; }
 
         /// <summary>
-        ///  Read the values from the configuration file
+        ///  Read the values from the save file
         /// </summary>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
@@ -37,7 +44,7 @@ namespace Clicker.Engine.Private {
         /// <exception cref="IOException"></exception>
         /// <exception cref="JsonSerializationException"></exception>
         /// <exception cref="JsonException"></exception>
-        public static Configuration Read()
+        public static Score Read()
         {
             JsonSerializerSettings jsonSerializerSettings = InitJsonSerializerSettings();
 
@@ -45,19 +52,19 @@ namespace Clicker.Engine.Private {
 
             StreamReader stream;
             JsonTextReader jsonText;
-            Configuration result;
+            Score result;
             using (stream = new StreamReader(Path))
             using (jsonText = new JsonTextReader(stream))
             {
-                // Now read the configuration.
-                result = serializer.Deserialize<Configuration>(jsonText);
+                // Now read the score.
+                result = serializer.Deserialize<Score>(jsonText);
             }
 
             return result;
         }
 
         /// <summary>
-        ///  Write values to the configuration file
+        ///  Write values to the score file
         /// </summary>
         /// <exception cref="UnauthorizedAccessException"></exception>
         /// <exception cref="ArgumentException"></exception>
@@ -68,7 +75,7 @@ namespace Clicker.Engine.Private {
         /// <exception cref="System.Security.SecurityException"></exception>
         /// <exception cref="JsonSerializationException"></exception>
         /// <exception cref="JsonException"></exception>
-        public static void Write(Configuration configuration)
+        public static void Write(Score score)
         {
             JsonSerializerSettings jsonSerializerSettings = InitJsonSerializerSettings();
 
@@ -79,11 +86,11 @@ namespace Clicker.Engine.Private {
             using (stream = new StreamWriter(Path))
             using (jsonText = new JsonTextWriter(stream))
             {
-                // Now write the configuration.
-                serializer.Serialize(jsonText, configuration);
+                // Now write the score.
+                serializer.Serialize(jsonText, score);
             }
 
         }
-        
+
     }
 }

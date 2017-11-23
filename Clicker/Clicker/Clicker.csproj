@@ -33,9 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\" />
-    <Folder Include="Engine\" />
-    <Folder Include="Game\" />
-    <Folder Include="Engine\Public\" />
     <Folder Include="Engine\Private\" />
     <Folder Include="GameKit\" />
   </ItemGroup>

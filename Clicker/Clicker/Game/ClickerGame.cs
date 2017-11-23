@@ -36,7 +36,7 @@ namespace Clicker.Game {
         }
 
         public void LoadLastGame(){
-            
+            Instance.SwitchToScene(new GameplayScene(true));
         }
     }
 }
