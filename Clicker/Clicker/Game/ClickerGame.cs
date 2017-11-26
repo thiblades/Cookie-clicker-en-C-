@@ -36,20 +36,26 @@ namespace Clicker.Game {
             Instance.SwitchToScene(new ErrorMenuScene(msg));
         }
 
-        public void StartNewGame(){
-            GameState state = new GameState();
+        public void GoToGame(GameState state) {
             Instance.SwitchToScene(new GameplayScene(state));
+        }
+
+        public void GoToPause(GameState state){
+            
+        }
+
+        public void StartNewGame(){
+            GoToGame(new GameState());
         }
 
         public void LoadLastGame(){
             SaveGame saveGame = SaveGame.Read();
 
-            if( saveGame != null ){
-                GameState state = saveGame.ToState();
-                Instance.SwitchToScene(new GameplayScene(state));
-            } else {
+            if( saveGame != null )
+                GoToGame(saveGame.ToState());
+            else
                 GoToError("Échec du Chargement");
-            }
         }
+
     }
 }

@@ -23,17 +23,20 @@ namespace Clicker.Game {
         }
 
         private void OnNewGame(){
-            ClickerGame game = (ClickerGame) Instance.Game;
-            game.StartNewGame();
+            GetGame().StartNewGame();
         }
 
         private void OnLoadGame(){
-            ClickerGame game = (ClickerGame) Instance.Game;
-            game.LoadLastGame();
+            GetGame().LoadLastGame();
         }
 
         private void OnQuit(){
             this.Instance.Quit();
+        }
+
+        private ClickerGame GetGame() {
+            ClickerGame game = (ClickerGame) Instance.Game;
+            return game;
         }
     }
 }

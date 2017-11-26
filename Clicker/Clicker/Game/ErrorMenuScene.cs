@@ -21,8 +21,12 @@ namespace Clicker.Game {
         }
 
         private void OnBack(){
+            GetGame().GoToMainMenu();
+        }
+
+        private ClickerGame GetGame() {
             ClickerGame game = (ClickerGame) Instance.Game;
-            game.GoToMainMenu();
+            return game;
         }
     }
 }
