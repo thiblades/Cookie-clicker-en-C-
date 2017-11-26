@@ -130,5 +130,16 @@ namespace Clicker.Game {
             //      bonus panel know about every MouseUp event.
             bonusPanel.OnMouseUp(evt.Button, evt.X, evt.Y);
         }
+
+        public override void OnKeyUp(KeyEventArgs e) {
+            if( e.Code == Keyboard.Key.Escape ){
+                GetGame().GoToPause(state);
+            }
+        }
+
+        private ClickerGame GetGame() {
+            ClickerGame game = (ClickerGame) Instance.Game;
+            return game;
+        }
     }
 }

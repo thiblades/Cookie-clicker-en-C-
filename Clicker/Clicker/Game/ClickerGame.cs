@@ -41,7 +41,7 @@ namespace Clicker.Game {
         }
 
         public void GoToPause(GameState state){
-            
+            Instance.SwitchToScene(new PauseMenuScene(state));
         }
 
         public void StartNewGame(){
