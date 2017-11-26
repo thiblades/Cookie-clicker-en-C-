@@ -24,6 +24,11 @@ namespace Clicker.GameKit {
             );
         }
 
+        public void UpdateCentering(float width, float height){
+            Vector2u newSize = new Vector2u((uint) width, (uint) height);
+            this.UpdateCentering(newSize);
+        }
+
         public void UpdateCentering(Vector2u newSize){
             RecalculateSize();
 
