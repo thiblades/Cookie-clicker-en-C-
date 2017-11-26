@@ -168,6 +168,7 @@ namespace Clicker.Engine.Private {
             state = State.LoadingScene;
 
             // Reset and display the loading scene.
+            gameWindow.Scene.Exit();
             loadingScene.SetDisplay(0, "");
             gameWindow.Scene = loadingScene;
 
