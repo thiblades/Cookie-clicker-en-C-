@@ -9,7 +9,7 @@ namespace Clicker.Game {
         private uint initialCost;
         private uint cookiesPerPeriod;
         private float period;
-        private uint count;
+        private ulong count;
 
         private TimeAccumulator time;
 
@@ -29,6 +29,17 @@ namespace Clicker.Game {
             this.period = period;
             this.count = 0;
             this.time = new TimeAccumulator();
+        }
+
+        public Bonus(string name, uint initialCost, uint perPeriod, float period, ulong count, float time){
+            this.name = name;
+            this.image = "";
+            this.initialCost = initialCost;
+            this.cookiesPerPeriod = perPeriod;
+            this.period = period;
+            this.count = count;
+            this.time = new TimeAccumulator();
+            this.time.t = time;
         }
 
         /// <summary>
@@ -132,8 +143,9 @@ namespace Clicker.Game {
         }
 
         public float Time {
-            get { return time.t;  }
-            set { time.t = value; }
+            get {
+                return time.t;
+            }
         }
     }
 }

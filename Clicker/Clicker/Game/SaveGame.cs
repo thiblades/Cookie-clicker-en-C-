@@ -47,10 +47,11 @@ namespace Clicker.Game {
             foreach(Bonus curr in Bonuses){
                 result.Bonuses.Add(new Game.Bonus(
                     name: curr.Name,
-                    image: "",
                     initialCost: curr.InitialCost,
-                    cookiesPerPeriod: curr.CookiesPerPeriod,
-                    period: curr.Period
+                    perPeriod: curr.CookiesPerPeriod,
+                    period: curr.Period,
+                    count: curr.Count,
+                    time: curr.Time
                 ));
             }
 
