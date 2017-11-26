@@ -24,13 +24,13 @@ namespace Clicker.Game {
 
         private GameState state;
 
-        public GameplayScene() {
+        public GameplayScene(GameState gameState) {
+            state = gameState;
         }
 
         public override void Load(IProgressReport pr){
             // Prpeare the time accumulator
             time = new TimeAccumulator();
-            state = new GameState();
 
             // Load all images
             pr.ReportProgress(0, "Chargement des images...");
