@@ -38,6 +38,8 @@
     <Folder Include="Engine\Public\" />
     <Folder Include="Engine\Private\" />
     <Folder Include="GameKit\" />
+    <Folder Include="Game\Model\" />
+    <Folder Include="Game\Gameplay\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />

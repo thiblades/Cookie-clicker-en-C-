@@ -5,7 +5,7 @@ using SFML.Graphics;
 using Clicker.Engine.Public;
 using Clicker.GameKit;
 
-namespace Clicker {
+namespace Clicker.Game {
     public class MainMenuScene : MenuScene {
         public MainMenuScene() {
             backgroundImage = "Assets/TitleBackground.png";
@@ -23,15 +23,20 @@ namespace Clicker {
         }
 
         private void OnNewGame(){
-            Console.WriteLine("new game selected");
+            GetGame().StartNewGame();
         }
 
         private void OnLoadGame(){
-            Console.WriteLine("load game selected");
+            GetGame().LoadLastGame();
         }
 
         private void OnQuit(){
             this.Instance.Quit();
+        }
+
+        private ClickerGame GetGame() {
+            ClickerGame game = (ClickerGame) Instance.Game;
+            return game;
         }
     }
 }
