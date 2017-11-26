@@ -4,10 +4,6 @@ using System.Collections.Generic;
 
 namespace Clicker.Game {
     public class GameState {
-        // Event called when the user bought a bonus.
-        public delegate void DBuyBonus(Bonus b);
-        public event DBuyBonus OnBuyBonus;
-
         // The current score.
         public ulong Score;
 

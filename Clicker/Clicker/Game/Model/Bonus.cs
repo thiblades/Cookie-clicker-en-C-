@@ -105,7 +105,7 @@ namespace Clicker.Game {
         /// Gets the period length, in seconds.
         /// </summary>
         /// <value>The period.</value>
-        public double Period {
+        public float Period {
             get {
                 return period;
             }
@@ -129,6 +129,11 @@ namespace Clicker.Game {
                 // Because scores are integer values, round this up.
                 return (ulong) MathF.Ceiling(actualCost);
             }
+        }
+
+        public float Time {
+            get { return time.t;  }
+            set { time.t = value; }
         }
     }
 }
