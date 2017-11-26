@@ -23,6 +23,7 @@ namespace Clicker.Game {
         private Text perSecondText;
 
         private GameState state;
+        private SoundManager sound;
 
         public GameplayScene(GameState gameState) {
             state = gameState;
@@ -33,7 +34,7 @@ namespace Clicker.Game {
             time = new TimeAccumulator();
 
             // Load all images
-            pr.ReportProgress(0, "Chargement des images...");
+            pr.ReportProgress(0.00f, "Chargement des images...");
             background = new BackgroundImage(BACKGROUND_IMAGE);
             panelBackground = new BackgroundImage(PANEL_BACKGROUND_IMAGE);
 
@@ -42,7 +43,7 @@ namespace Clicker.Game {
             cookieButton.Scale = new Vector2f(.5f, .5f);
 
             // Load text
-            pr.ReportProgress(0.5f, "Chargement des polices...");
+            pr.ReportProgress(0.25f, "Chargement des polices...");
             font = new Font("Assets/GenericFont.otf");
             scoreText = new Text("", font);
             scoreText.Color = Color.White;
@@ -57,9 +58,12 @@ namespace Clicker.Game {
             perSecondText.Position = new Vector2f(25, 70);
 
             // Prepare the bonus panel
-            pr.ReportProgress(0.75f, "Préparation des bonus...");
+            pr.ReportProgress(0.50f, "Préparation des bonus...");
             bonusPanel = new BonusPanel(state, font);
 
+            pr.ReportProgress(0.75f, "Chargement des sons...");
+            sound = new SoundManager();
+            sound.PlayTrack(0);
         }
 
         public override void Layout(Vector2u newSize){
@@ -80,6 +84,11 @@ namespace Clicker.Game {
         public override void Update(float dt){
             // Account for time (for animations).
             time.Frame(dt);
+
+            // Update the sound first, because any interruption in the sound will
+            // be noticed immediately, whereas drops in framerate can go
+            // unnoticed if they remain minor.
+            sound.Update(dt);
 
             // Update the game state.
             state.Update(dt);
@@ -110,6 +119,11 @@ namespace Clicker.Game {
             rt.Draw(perSecondText);
         }
 
+        public override void Exit(){
+            // When we're leaving the scene, stop the music.
+            sound.StopEverything();
+        }
+
         public override void OnMouseDown(MouseButtonEventArgs evt){
             if( cookieButton.GetGlobalBounds().Contains(evt.X, evt.Y)){
                 cookieButton.Scale = new Vector2f(.6f, .6f);
@@ -122,6 +136,7 @@ namespace Clicker.Game {
             if( cookieButton.GetGlobalBounds().Contains(evt.X, evt.Y) ) {
                 cookieButton.Scale = new Vector2f(.5f, .5f);
                 state.Click();
+                sound.PlayClick();
             }
 
             // FIX: A player might press the mouse button within the cell, then
