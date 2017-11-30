@@ -3,9 +3,11 @@
 using SFML.Graphics;
 using SFML.System;
 
-// TODO: Set origin to text center, and simplify the centering equations
-
 namespace Clicker.GameKit {
+    /// <summary>
+    /// This class implements text that is centered within a given rectangle,
+    /// either horizontally, vertically, or both.
+    /// </summary>
     public class CenteredText: Text {
         public bool CenterX = false;
         public bool CenterY = false;

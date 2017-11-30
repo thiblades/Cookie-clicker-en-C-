@@ -40,6 +40,8 @@
     <Folder Include="GameKit\" />
     <Folder Include="Game\Model\" />
     <Folder Include="Game\Gameplay\" />
+    <Folder Include="Assets\SFX\" />
+    <Folder Include="Assets\Music\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />

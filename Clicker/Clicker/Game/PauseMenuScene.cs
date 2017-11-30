@@ -6,6 +6,9 @@ using Clicker.Engine.Public;
 using Clicker.GameKit;
 
 namespace Clicker.Game {
+    /// <summary>
+    /// The pause menu.
+    /// </summary>
     public class PauseMenuScene: MenuScene {
         private GameState state;
 

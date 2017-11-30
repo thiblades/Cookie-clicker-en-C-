@@ -6,6 +6,9 @@ using Clicker.Engine.Public;
 using Clicker.GameKit;
 
 namespace Clicker.Game {
+    /// <summary>
+    /// This scene is shown when an error occurs while loading a savegame.
+    /// </summary>
     public class ErrorMenuScene: MenuScene {
         public ErrorMenuScene(string msg) {
             backgroundImage = "Assets/TitleBackground.png";

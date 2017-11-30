@@ -6,6 +6,9 @@ using Clicker.Engine.Public;
 using Clicker.GameKit;
 
 namespace Clicker.Game {
+    /// <summary>
+    /// The main menu.
+    /// </summary>
     public class MainMenuScene : MenuScene {
         public MainMenuScene() {
             backgroundImage = "Assets/TitleBackground.png";

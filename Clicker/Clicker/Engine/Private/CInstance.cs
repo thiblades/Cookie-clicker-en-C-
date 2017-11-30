@@ -91,11 +91,6 @@ namespace Clicker.Engine.Private {
                 if( gameWindow.HasScene() )
                     gameWindow.Scene.OnMouseLeave();
             };
-
-            gameWindow.Window.TextEntered += (object sender, TextEventArgs e) => {
-                if( gameWindow.HasScene() )
-                    gameWindow.Scene.OnTextEntered(e);
-            };
         }
 
         private void Initialize(){
@@ -168,6 +163,7 @@ namespace Clicker.Engine.Private {
             state = State.LoadingScene;
 
             // Reset and display the loading scene.
+            gameWindow.Scene.Exit();
             loadingScene.SetDisplay(0, "");
             gameWindow.Scene = loadingScene;
 

@@ -5,6 +5,14 @@ using SFML.Window;
 using SFML.Graphics;
 
 namespace Clicker.GameKit {
+    /// <summary>
+    /// An image that automatically rescales to take up the entire screen.
+    /// </summary>
+    /// 
+    /// Often, we want a particular image to take the entire screen, but SFML's
+    /// only concept of resizing is through transforms. This class will
+    /// recalculate the correct ratios on each layout to ensure the image
+    /// always takes up the entire screen.
     public class BackgroundImage {
         public string imagePath;
 
@@ -28,6 +36,10 @@ namespace Clicker.GameKit {
 
         public void Render(RenderTarget rt){
             rt.Draw(sprite);
+        }
+
+        public void Render(RenderTarget rt, RenderStates rs){
+            rt.Draw(sprite, rs);
         }
     }
 }

@@ -12,6 +12,8 @@ namespace Clicker.Game {
         public const string BACKGROUND_IMAGE = "Assets/Background.png";
         public const string PANEL_BACKGROUND_IMAGE = "Assets/BonusPanel.png";
 
+        public const ulong SCORE_WHERE_MUSIC_CHANGES = 1000000;
+
         private BackgroundImage background;
         private BackgroundImage panelBackground;
         private TimeAccumulator time;
@@ -23,9 +25,23 @@ namespace Clicker.Game {
         private Text perSecondText;
 
         private GameState state;
+        private SoundManager sound;
+
+        private void OnScoreChange(ulong oldScore, ulong newScore){
+            // Switch to track 2 when the player reaches the threshold.
+            if( oldScore < SCORE_WHERE_MUSIC_CHANGES && newScore >= SCORE_WHERE_MUSIC_CHANGES ){
+                sound.PlayTrack(1);
+            }
+
+            // Switch back to track 1 when the player falls back under it.
+            if( oldScore >= SCORE_WHERE_MUSIC_CHANGES && newScore < SCORE_WHERE_MUSIC_CHANGES ){
+                sound.PlayTrack(0);
+            }
+        }
 
         public GameplayScene(GameState gameState) {
             state = gameState;
+            state.OnScoreChange += this.OnScoreChange;
         }
 
         public override void Load(IProgressReport pr){
@@ -33,7 +49,7 @@ namespace Clicker.Game {
             time = new TimeAccumulator();
 
             // Load all images
-            pr.ReportProgress(0, "Chargement des images...");
+            pr.ReportProgress(0.00f, "Chargement des images...");
             background = new BackgroundImage(BACKGROUND_IMAGE);
             panelBackground = new BackgroundImage(PANEL_BACKGROUND_IMAGE);
 
@@ -42,7 +58,7 @@ namespace Clicker.Game {
             cookieButton.Scale = new Vector2f(.5f, .5f);
 
             // Load text
-            pr.ReportProgress(0.5f, "Chargement des polices...");
+            pr.ReportProgress(0.25f, "Chargement des polices...");
             font = new Font("Assets/GenericFont.otf");
             scoreText = new Text("", font);
             scoreText.Color = Color.White;
@@ -57,9 +73,18 @@ namespace Clicker.Game {
             perSecondText.Position = new Vector2f(25, 70);
 
             // Prepare the bonus panel
-            pr.ReportProgress(0.75f, "Préparation des bonus...");
+            pr.ReportProgress(0.50f, "Préparation des bonus...");
             bonusPanel = new BonusPanel(state, font);
 
+            // Prepare the sounds
+            pr.ReportProgress(0.75f, "Chargement des sons...");
+            sound = new SoundManager();
+
+            // Start playing the right track
+            if( state.Score < SCORE_WHERE_MUSIC_CHANGES )
+                sound.PlayTrack(0);
+            else
+                sound.PlayTrack(1);
         }
 
         public override void Layout(Vector2u newSize){
@@ -80,6 +105,11 @@ namespace Clicker.Game {
         public override void Update(float dt){
             // Account for time (for animations).
             time.Frame(dt);
+
+            // Update the sound first, because any interruption in the sound will
+            // be noticed immediately, whereas drops in framerate can go
+            // unnoticed if they remain minor.
+            sound.Update(dt);
 
             // Update the game state.
             state.Update(dt);
@@ -110,18 +140,30 @@ namespace Clicker.Game {
             rt.Draw(perSecondText);
         }
 
+        public override void Exit(){
+            // When we're leaving the scene, stop the music.
+            sound.StopEverything();
+        }
+
         public override void OnMouseDown(MouseButtonEventArgs evt){
             if( cookieButton.GetGlobalBounds().Contains(evt.X, evt.Y)){
+                // If the user presses the mouse button on the cookie, make it
+                // bigger to acknowledge the action.
                 cookieButton.Scale = new Vector2f(.6f, .6f);
             } else if( bonusPanel.ContainsPoint(evt.X, evt.Y) ){
+                // If the user presses a mouse button within the bonus panel,
+                // forward that.
                 bonusPanel.OnMouseDown(evt.Button, evt.X, evt.Y);
             }
         }
 
         public override void OnMouseUp(MouseButtonEventArgs evt) {
+            // When the player releases the mouse button over the cookie button,
+            // count that as a click, and make a click sound.
             if( cookieButton.GetGlobalBounds().Contains(evt.X, evt.Y) ) {
                 cookieButton.Scale = new Vector2f(.5f, .5f);
                 state.Click();
+                sound.PlayClick();
             }
 
             // FIX: A player might press the mouse button within the cell, then

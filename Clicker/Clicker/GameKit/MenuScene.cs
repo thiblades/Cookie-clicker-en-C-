@@ -7,7 +7,9 @@ using SFML.Graphics;
 using Clicker.Engine.Public;
 
 namespace Clicker.GameKit {
-
+    /// <summary>
+    /// Simple menu with multiple selectable options.
+    /// </summary>
     public class MenuScene : Scene {
         // Public interface
         public class Item {
@@ -181,68 +183,3 @@ namespace Clicker.GameKit {
     }
 }
 
-/*
-        private VertexArray     bgVertices;
-        private RenderStates    bgStates;
-
-        private Font font;
-        private Text            titleText;
-        private Text[]          itemText;
-        
-        public override void Load(IProgressReport pr) {
-            // Prepare the background image and vertex array
-            pr.ReportProgress(0, "Chargement image de fond");
-
-            bgStates = new RenderStates();
-            bgStates.Texture = new Texture(bgImage);
-
-            // Load the font we'll use for the whole menu.
-            pr.ReportProgress(0, "Chargement police de caractères");
-            font = new Font("Assets/GenericFont.otf");
-
-            titleText = new Text(title, font);
-            titleText.CharacterSize = 100;
-            titleText.Position = new Vector2f(0, 0);
-            titleText.Color = Color.White;
-
-            // Create all title texts. They'll be positioned in Layout()
-            pr.ReportProgress(0, "Préparation des textes");
-            itemText = new Text[items.Length];
-
-            for( int i = 0; i < items.Length; ++i ) {
-                itemText[i] = new Text(items[i].title, font);
-                itemText[i].CharacterSize = 50;
-                itemText[i].Color = Color.White;
-            }
-        }
-
-        public override void Layout(Vector2u newSize) {
-            float w = newSize.X, h = newSize.Y;
-
-            bgVertices = new VertexArray(PrimitiveType.Triangles);
-            bgVertices.Append(new Vertex(new Vector2f(0, 0), new Vector2f(0, 0)));
-            bgVertices.Append(new Vertex(new Vector2f(newSize.X, 0), new Vector2f(bgStates.Texture.Size.X, 0)));
-            bgVertices.Append(new Vertex(new Vector2f(newSize.X, newSize.Y), new Vector2f(bgStates.Texture.Size.X, bgStates.Texture.Size.Y)));
-
-            //bgVertices.Append(new Vertex(new Vector2f(-w, +h), new Vector2f(0, 1)));
-
-            return;
-            FloatRect titleRect = titleText.GetLocalBounds();
-
-            titleText.Position = new Vector2f(
-                (newSize.X - titleRect.Width) / 2,
-                0
-            );
-
-            float remainingSpace = newSize.Y - titleRect.Height;
-        }
-
-        public override void Update(float dt) {
-
-        }
-
-        public override void Render(RenderTarget rt) {
-            rt.Clear(Color.Red);
-            rt.Draw(bgVertices, bgStates);
-        }
-*/

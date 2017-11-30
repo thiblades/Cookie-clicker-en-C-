@@ -16,7 +16,9 @@ namespace Clicker.Engine.Private {
         private RectangleShape progressBar = null;
         private float progressBarWidth;
 
-        public static int PROGRESS_BAR_HEIGHT = 12;
+        public const int ProgressBarHeight = 12;
+        public static Color BackgroundColor = new Color(2, 82, 79);
+        public static Color ProgressColor = new Color(253, 191, 86);
 
         public LoadingScene(Public.Game game) {
             logoPath = game.Logo;
@@ -40,7 +42,7 @@ namespace Clicker.Engine.Private {
             // Load the font we'll use for the logo
             loadingText = new Text();
             loadingText.Font = new Font("Assets/GenericFont.otf");
-            loadingText.Color = Color.Black;
+            loadingText.Color = ProgressColor;
             loadingText.DisplayedString = "";
             loadingText.CharacterSize = 24;
 
@@ -52,8 +54,8 @@ namespace Clicker.Engine.Private {
 
             // Create the rectangle shape we need
             progressBar = new RectangleShape();
-            progressBar.FillColor = Color.Black;
-            progressBar.Size = new Vector2f(0, PROGRESS_BAR_HEIGHT);
+            progressBar.FillColor = ProgressColor;
+            progressBar.Size = new Vector2f(0, ProgressBarHeight);
         }
 
         override public void Layout(Vector2u newSize){
@@ -84,7 +86,7 @@ namespace Clicker.Engine.Private {
             // Finally, place the progress bar right under this
             progressBarWidth = TargetLogoSize * 1.5f;
 
-            progressBar.Size = new Vector2f(progressBarWidth, PROGRESS_BAR_HEIGHT);
+            progressBar.Size = new Vector2f(progressBarWidth, ProgressBarHeight);
 
             progressBar.Position = new Vector2f(
                 (newSize.X - progressBarWidth) / 2,
@@ -98,7 +100,7 @@ namespace Clicker.Engine.Private {
         }
 
         override public void Render(RenderTarget target){
-            target.Clear(Color.White);
+            target.Clear(BackgroundColor);
             target.Draw(logoSprite);
             target.Draw(loadingText);
             target.Draw(progressBar);

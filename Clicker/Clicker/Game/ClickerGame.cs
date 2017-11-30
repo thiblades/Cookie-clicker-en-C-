@@ -4,10 +4,13 @@ using System.Threading;
 using Clicker.Engine.Public;
 
 namespace Clicker.Game {
+    /// <summary>
+    /// Party Clicker's Game implementation.
+    /// </summary>
     public class ClickerGame : Engine.Public.Game {
         public override string Name {
             get {
-                return "Cookie Clicker";
+                return "Party Clicker";
             }
         }
 

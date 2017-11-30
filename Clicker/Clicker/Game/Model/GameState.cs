@@ -4,8 +4,27 @@ using System.Collections.Generic;
 
 namespace Clicker.Game {
     public class GameState {
+        // Event triggered every time the score changes
+        public delegate void ScoreChange(ulong oldScore, ulong newScore);
+        public event ScoreChange OnScoreChange;
+
         // The current score.
-        public ulong Score;
+        private ulong score;
+
+        public ulong Score {
+            get {
+                return score;
+            }
+
+            set {
+                // Trigger the event, but don't fail if no handlers were registered.
+                try {
+                    OnScoreChange(score, value);
+                } catch(NullReferenceException){}
+
+                score = value;
+            }
+        }
 
         // List of registered bonus types.
         private List<Bonus> bonuses;
