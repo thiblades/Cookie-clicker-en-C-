@@ -1,6 +1,7 @@
 ﻿using System;
 
 using SFML.Graphics;
+using SFML.Audio;
 
 using Clicker.Engine.Public;
 using Clicker.GameKit;
@@ -11,9 +12,13 @@ namespace Clicker.Game {
     /// </summary>
     public class PauseMenuScene: MenuScene {
         private GameState state;
+        private SoundManager sound;
+
+        private Sound saveConfirmSound;
 
         public PauseMenuScene(GameState gameState) {
             state = gameState;
+            saveConfirmSound = new Sound(new SoundBuffer("Assets/SFX/Click.wav"));
 
             backgroundImage = "Assets/TitleBackground.png";
             title = "En Pause";
@@ -36,6 +41,7 @@ namespace Clicker.Game {
         private void OnSave(){
             SaveGame sg = new SaveGame(state);
             sg.Write();
+            saveConfirmSound.Play();
         }
 
         private void OnMainMenu(){

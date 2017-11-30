@@ -77,7 +77,7 @@ namespace Clicker.Game {
             perSecondText.Position = new Vector2f(25, 70);
 
             // Prepare the status line
-            statusLine = new CenteredText("TEST TEST TEST TEST", font, 40);
+            statusLine = new CenteredText("Clique sur le verre pour boire!", font, 40);
             statusLine.CenterX = true;
             statusLine.CenterY = true;
             statusLine.Color = Color.White;
@@ -147,11 +147,11 @@ namespace Clicker.Game {
             // Update the status line's animation
             if( !statusLine.DisplayedString.Equals("") ) {
                 float w = 2 * MathF.PI * MusicBPM / 60.0f; // \omega = 2 * \pi * f
-                float factor = (MathF.Sin(w * time.t) + 1.0f) / 2;
+                float factor = MathF.Sin(w * time.t);
 
                 Vector2f newScale = new Vector2f();
-                newScale.X = 1.0f + (factor - 0.6f) + 0.6f;
-                newScale.Y = 1.0f + (factor - 0.9f) + 0.9f;
+                newScale.X = 1.0f + factor * 0.2f;
+                newScale.Y = 1.0f + factor * 0.3f;
                 statusLine.Scale = newScale;
             }
         }

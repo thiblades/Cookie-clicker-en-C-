@@ -39,7 +39,7 @@ namespace Clicker.Game {
         public const float BONUS_CELL_HEIGHT      = 120;
 
         public const uint TITLE_FONT_SIZE         = 60;
-        public const uint BONUS_TITLE_FONT_SIZE   = 60;
+        public const uint BONUS_TITLE_FONT_SIZE   = 50;
         public const uint BONUS_PRICE_FONT_SIZE   = 20;
 
         // For some reason, SFML's color constants are not declared const, which
