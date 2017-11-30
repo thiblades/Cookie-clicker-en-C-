@@ -37,9 +37,11 @@ namespace Clicker.Game {
         private List<Track> tracks = new List<Track>();
         private Status status = Status.Stopped;
         private TimeAccumulator time = new TimeAccumulator();
+        private int currentTrack;
 
         public SoundManager() {
             click = new Sound(new SoundBuffer("Assets/SFX/Click.wav"));
+            currentTrack = -1;
 
             for( uint i = 0; i < TRACK_COUNT; ++i ) {
                 Track t = new Track();
@@ -60,6 +62,7 @@ namespace Clicker.Game {
 
             tracks[(int) i].intro.Play();
             status = Status.Intro;
+            currentTrack = (int) i;
         }
 
         public void Update(float dt){
@@ -67,8 +70,10 @@ namespace Clicker.Game {
 
             // If an intro has completed, play the loop part.
             if( status == Status.Intro ){
-                foreach(Track curr in tracks){
-                    if( curr.intro.Status == SoundStatus.Stopped ){
+                for( int i = 0; i < tracks.Count;  ++i){
+                    Track curr = tracks[i];
+
+                    if( i == currentTrack && curr.intro.Status == SoundStatus.Stopped ){
                         curr.loop.Play();
                         status = Status.Loop;
                     }
