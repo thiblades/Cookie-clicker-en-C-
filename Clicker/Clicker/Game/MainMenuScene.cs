@@ -11,6 +11,7 @@ namespace Clicker.Game {
     /// </summary>
     public class MainMenuScene : MenuScene {
         public MainMenuScene() {
+            backgroundMusic = "Assets/Music/Menu.ogg";
             backgroundImage = "Assets/TitleBackground.png";
             title = "Menu Principal";
 

@@ -3,6 +3,7 @@
 using SFML.System;
 using SFML.Window;
 using SFML.Graphics;
+using SFML.Audio;
 
 using Clicker.Engine.Public;
 
@@ -27,6 +28,7 @@ namespace Clicker.GameKit {
         public string title;
         public string backgroundImage;
         public Item[] items;
+        public string backgroundMusic = null;
 
         public Color titleColor = Color.White;
         public Color neutralColor = Color.White;
@@ -59,17 +61,18 @@ namespace Clicker.GameKit {
         private MenuItemInfo[] itemsInfo;
         private uint selectedItem = 0;
         private TimeAccumulator time = new TimeAccumulator();
+        private Music bgSound;
 
         public MenuScene() {
         }
 
         public override void Load(IProgressReport pr) {
             // Prepare the background image and vertex array
-            pr.ReportProgress(0, "Chargement image de fond");
+            pr.ReportProgress(0.25f, "Chargement image de fond");
             background = new BackgroundImage(backgroundImage);
 
             // Load the font used for the entire menu
-            pr.ReportProgress(0, "Chargement texte");
+            pr.ReportProgress(0.6f, "Chargement texte");
             font = new Font("Assets/GenericFont.otf");
 
             // Prepare the title
@@ -82,6 +85,13 @@ namespace Clicker.GameKit {
             for( int i = 0; i < items.Length; ++i ) {
                 itemsInfo[i] = new MenuItemInfo(items[i], font, OPTION_SIZE);
                 itemsInfo[i].text.Color = neutralColor;
+            }
+
+            if( backgroundMusic != null ){
+                pr.ReportProgress(0.8f, "Chargement musique");
+                bgSound = new Music(backgroundMusic);
+                bgSound.Loop = true;
+                bgSound.Play();
             }
         }
 
@@ -135,6 +145,11 @@ namespace Clicker.GameKit {
 
             for( int i = 0; i < items.Length; ++i )
                 rt.Draw(itemsInfo[i].text);
+        }
+
+        public override void Exit(){
+            if( backgroundMusic != null )
+                bgSound.Stop();
         }
 
         public override void OnKeyDown(KeyEventArgs e){
