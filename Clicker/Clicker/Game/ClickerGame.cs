@@ -35,6 +35,16 @@ namespace Clicker.Game {
             Instance.SwitchToScene(new MainMenuScene());
         }
 
+        public void GoToTutorial()
+        {
+            Instance.SwitchToScene(new TutoScene());
+        }
+
+        public void GoToCredits()
+        {
+            Instance.SwitchToScene(new CreditScene());
+        }
+
         public void GoToError(string msg){
             Instance.SwitchToScene(new ErrorMenuScene(msg));
         }
