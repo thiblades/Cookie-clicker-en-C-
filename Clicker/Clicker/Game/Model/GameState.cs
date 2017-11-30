@@ -100,10 +100,11 @@ namespace Clicker.Game {
             bonuses = new List<Bonus>();
 
             // Register bonuses.
-            AddBonus(name: "Bonus 1", initialCost: 15, perPeriod: 1, period: 5.0f);
-            AddBonus(name: "Bonus 2", initialCost: 30, perPeriod: 1, period: 1.0f);
-            AddBonus(name: "Bonus 3", initialCost: 50, perPeriod: 14, period: 1.0f);
-            AddBonus(name: "OO0HMAN", initialCost: 1, perPeriod: 1000000, period: 1.0f);
+            AddBonus(name: "Verre en +", initialCost: 15, perPeriod: 1, period: 5.0f);
+            AddBonus(name: "Entonnoir", initialCost: 30, perPeriod: 1, period: 1.0f);
+            AddBonus(name: "Foie Renforcé", initialCost: 100, perPeriod: 50, period: 1.0f);
+            AddBonus(name: "No Time 4 PLS", initialCost: 500, perPeriod: 100, period: 1.0f);
+            AddBonus(name: "Intraveineuse", initialCost: 50000, perPeriod: 106900, period: 1.0f);
         }
 
         /// <summary>
