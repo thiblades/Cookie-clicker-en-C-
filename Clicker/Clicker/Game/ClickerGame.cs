@@ -7,7 +7,7 @@ namespace Clicker.Game {
     public class ClickerGame : Engine.Public.Game {
         public override string Name {
             get {
-                return "Cookie Clicker";
+                return "Party Clicker";
             }
         }
 
