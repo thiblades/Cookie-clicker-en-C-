@@ -31,7 +31,7 @@ namespace Clicker.Game {
             Loop,
         };
 
-        public const uint TRACK_COUNT = 1;
+        public const uint TRACK_COUNT = 2;
 
         private Sound click;
         private List<Track> tracks = new List<Track>();
