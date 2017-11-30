@@ -21,6 +21,8 @@ namespace Clicker.Game {
             items = new Item[]{
                 new Item("Nouvelle Partie", OnNewGame),
                 new Item("Charger Partie", OnLoadGame),
+                new Item("Tutoriel", OnTutorial),
+                new Item("Crédits", OnCredits),
                 new Item("Quitter", OnQuit),
             };
         }
@@ -35,6 +37,16 @@ namespace Clicker.Game {
 
         private void OnQuit(){
             this.Instance.Quit();
+        }
+
+        private void OnTutorial()
+        {
+            GetGame().GoToTutorial();
+        }
+
+        private void OnCredits()
+        {
+            GetGame().GoToCredits();
         }
 
         private ClickerGame GetGame() {
