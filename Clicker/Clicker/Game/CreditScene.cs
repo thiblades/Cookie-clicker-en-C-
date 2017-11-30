@@ -14,8 +14,13 @@ namespace Clicker.Game {
         public const string TITLE = "Credits";
         public const uint TITLE_SIZE = 100;
         public const uint TITLE_MARGIN = 200;
-        public const string CREDITS = "Réalisé par l'équipe 'TLJ' pour Let's Dev\n\nEquipe composée de :\n"+
-            "Jessy Vanderaugstraete\nThibaut Fenain\nLilian Petitpas";
+        public const string CREDITS = 
+            "Réalisé par l'équipe 'TLJ' pour Let's Dev\n\n"+ 
+            "Equipe composée de :\n"+
+                "\tJessy Vanderaugstraete\n" + 
+                "\tThibaut Fenain\n" + 
+                "\tLilian Petitpas";
+        
         public const uint CREDITS_SIZE = 35;
 
 

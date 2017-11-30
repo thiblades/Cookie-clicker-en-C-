@@ -14,10 +14,13 @@ namespace Clicker.Game {
         public const string TITLE = "Tutoriel";
         public const uint TITLE_SIZE = 100;
         public const uint TITLE_MARGIN = 200;
-        public const string TUTO = "L'objectif du jeu est d'obtenir le meilleur score en\n\tcliquant sur le verre qui se présente au centre de l'écran.\n"+
-            "Vous pouvez utiliser des bonus afin de parvenir plus rapidement à votre objectif.\n"+"" +
-            "N'oubliez pas que la consommation d'alcool est dangeureuse pour la santé.\n"+
-            "Ne doit pas être consommé avec modération.";
+        public const string TUTO = 
+            "L'objectif du jeu est d'obtenir le meilleur score en cliquant sur le verre\n" +
+            "qui se présente au centre de l'écran.\n\n" +
+            "Vous pouvez utiliser des bonus afin de parvenir plus rapidement à votre objectif.\n\n" + 
+            "N'oubliez pas que la consommation d'alcool est dangeureuse pour la santé.\n" +
+            "Sauf dans les jeux, j'imagine (^_^)";
+        
         public const uint TUTO_SIZE = 35;
 
 
