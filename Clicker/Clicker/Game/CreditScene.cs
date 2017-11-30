@@ -36,6 +36,10 @@ namespace Clicker.Game {
         {
             background.Layout(newSize);
 
+            // Update size
+            titleText.CharacterSize = (TITLE_SIZE * Math.Min(newSize.X, newSize.Y)) / 1080;
+            creditsText.CharacterSize = (CREDITS_SIZE * Math.Min(newSize.X, newSize.Y)) / 1080;
+
             // Center all the items and the title horizontally
             titleText.UpdateCentering(newSize);
             creditsText.UpdateCentering(newSize);
