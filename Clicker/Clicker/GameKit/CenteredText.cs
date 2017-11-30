@@ -16,14 +16,12 @@ namespace Clicker.GameKit {
 
         public CenteredText(string text, Font font, uint charSize) : base(text, font, charSize){
             RecalculateSize();
-            Origin = new Vector2f(Dimensions.X / 2, Dimensions.Y / 2);
         }
 
         public void RecalculateSize(){
-            Dimensions = new Vector2f(
-                GetLocalBounds().Width,
-                GetLocalBounds().Height
-            );
+            FloatRect rect = GetLocalBounds();
+            Dimensions = new Vector2f(rect.Width, rect.Height);
+            Origin = new Vector2f(Dimensions.X / 2, Dimensions.Y / 2);
         }
 
         public void UpdateCentering(float width, float height){
