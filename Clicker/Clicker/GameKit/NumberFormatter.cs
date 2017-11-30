@@ -1,6 +1,10 @@
 ﻿using System;
 
 namespace Clicker.GameKit {
+    /// <summary>
+    /// Formats really big numbers to a human-friendly format.
+    /// Adapted from the original Cookie Clicker.
+    /// </summary>
     public class NumberFormatter {
         // c.f. (http://bdl.oqlf.gouv.qc.ca/bdl/gabarit_bdl.asp?id=4445)
         private static readonly string[] Notations = {

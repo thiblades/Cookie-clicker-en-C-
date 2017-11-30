@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Clicker.Game {
+    /// <summary>
+    /// This class contains all the data stored in a gamesave, and can be used
+    /// to load and save savegames.
+    /// </summary>
     public class SaveGame {
         public class Bonus {
             public string Name { get; set; }

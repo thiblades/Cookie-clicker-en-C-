@@ -3,6 +3,9 @@
 using Clicker.GameKit;
 
 namespace Clicker.Game {
+    /// <summary>
+    /// Represents an in-game bonus.
+    /// </summary>
     public class Bonus {
         private string name;
         private string image;

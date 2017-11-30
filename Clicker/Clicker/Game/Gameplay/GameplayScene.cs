@@ -76,9 +76,15 @@ namespace Clicker.Game {
             pr.ReportProgress(0.50f, "Préparation des bonus...");
             bonusPanel = new BonusPanel(state, font);
 
+            // Prepare the sounds
             pr.ReportProgress(0.75f, "Chargement des sons...");
             sound = new SoundManager();
-            sound.PlayTrack(0);
+
+            // Start playing the right track
+            if( state.Score < SCORE_WHERE_MUSIC_CHANGES )
+                sound.PlayTrack(0);
+            else
+                sound.PlayTrack(1);
         }
 
         public override void Layout(Vector2u newSize){
@@ -141,13 +147,19 @@ namespace Clicker.Game {
 
         public override void OnMouseDown(MouseButtonEventArgs evt){
             if( cookieButton.GetGlobalBounds().Contains(evt.X, evt.Y)){
+                // If the user presses the mouse button on the cookie, make it
+                // bigger to acknowledge the action.
                 cookieButton.Scale = new Vector2f(.6f, .6f);
             } else if( bonusPanel.ContainsPoint(evt.X, evt.Y) ){
+                // If the user presses a mouse button within the bonus panel,
+                // forward that.
                 bonusPanel.OnMouseDown(evt.Button, evt.X, evt.Y);
             }
         }
 
         public override void OnMouseUp(MouseButtonEventArgs evt) {
+            // When the player releases the mouse button over the cookie button,
+            // count that as a click, and make a click sound.
             if( cookieButton.GetGlobalBounds().Contains(evt.X, evt.Y) ) {
                 cookieButton.Scale = new Vector2f(.5f, .5f);
                 state.Click();
