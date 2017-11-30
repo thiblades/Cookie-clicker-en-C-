@@ -12,6 +12,8 @@ namespace Clicker.Game {
         public const string BACKGROUND_IMAGE = "Assets/Background.png";
         public const string PANEL_BACKGROUND_IMAGE = "Assets/BonusPanel.png";
 
+        public const ulong SCORE_WHERE_MUSIC_CHANGES = 1000000;
+
         private BackgroundImage background;
         private BackgroundImage panelBackground;
         private TimeAccumulator time;
@@ -25,8 +27,21 @@ namespace Clicker.Game {
         private GameState state;
         private SoundManager sound;
 
+        private void OnScoreChange(ulong oldScore, ulong newScore){
+            // Switch to track 2 when the player reaches the threshold.
+            if( oldScore < SCORE_WHERE_MUSIC_CHANGES && newScore >= SCORE_WHERE_MUSIC_CHANGES ){
+                sound.PlayTrack(1);
+            }
+
+            // Switch back to track 1 when the player falls back under it.
+            if( oldScore >= SCORE_WHERE_MUSIC_CHANGES && newScore < SCORE_WHERE_MUSIC_CHANGES ){
+                sound.PlayTrack(0);
+            }
+        }
+
         public GameplayScene(GameState gameState) {
             state = gameState;
+            state.OnScoreChange += this.OnScoreChange;
         }
 
         public override void Load(IProgressReport pr){
