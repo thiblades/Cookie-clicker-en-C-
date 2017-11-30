@@ -12,13 +12,12 @@ namespace Clicker.Game {
     /// </summary>
     public class PauseMenuScene: MenuScene {
         private GameState state;
-        private SoundManager sound;
 
         private Sound saveConfirmSound;
 
         public PauseMenuScene(GameState gameState) {
             state = gameState;
-            saveConfirmSound = new Sound(new SoundBuffer("Assets/SFX/Click.wav"));
+            saveConfirmSound = new Sound(new SoundBuffer("Assets/SFX/Confirm.wav"));
 
             backgroundImage = "Assets/TitleBackground.png";
             title = "En Pause";
