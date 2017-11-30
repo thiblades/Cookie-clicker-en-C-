@@ -9,15 +9,17 @@ using SFML.Window;
 
 namespace Clicker.Game {
     public class GameplayScene: Scene {
-        public const string BACKGROUND_IMAGE = "Assets/Background.png";
-        public const string PANEL_BACKGROUND_IMAGE = "Assets/BonusPanel.png";
+        public const string BackgroundImagePath = "Assets/Background.png";
+        public const string PanelBackgroundImagePath = "Assets/BonusPanel.png";
 
-        public const ulong SCORE_WHERE_MUSIC_CHANGES = 1000000;
+        public const ulong ScoreWhereMusicChanges = 1000000;
+        public const float MusicBPM = 140.0f;
 
         private BackgroundImage background;
         private BackgroundImage panelBackground;
         private TimeAccumulator time;
         private BonusPanel bonusPanel;
+        private CenteredText statusLine;
 
         private Sprite cookieButton;
         private Font font;
@@ -28,13 +30,15 @@ namespace Clicker.Game {
         private SoundManager sound;
 
         private void OnScoreChange(ulong oldScore, ulong newScore){
+            statusLine.DisplayedString = StatusMessages.Message(newScore);
+
             // Switch to track 2 when the player reaches the threshold.
-            if( oldScore < SCORE_WHERE_MUSIC_CHANGES && newScore >= SCORE_WHERE_MUSIC_CHANGES ){
+            if( oldScore < ScoreWhereMusicChanges && newScore >= ScoreWhereMusicChanges ){
                 sound.PlayTrack(1);
             }
 
             // Switch back to track 1 when the player falls back under it.
-            if( oldScore >= SCORE_WHERE_MUSIC_CHANGES && newScore < SCORE_WHERE_MUSIC_CHANGES ){
+            if( oldScore >= ScoreWhereMusicChanges && newScore < ScoreWhereMusicChanges ){
                 sound.PlayTrack(0);
             }
         }
@@ -50,8 +54,8 @@ namespace Clicker.Game {
 
             // Load all images
             pr.ReportProgress(0.00f, "Chargement des images...");
-            background = new BackgroundImage(BACKGROUND_IMAGE);
-            panelBackground = new BackgroundImage(PANEL_BACKGROUND_IMAGE);
+            background = new BackgroundImage(BackgroundImagePath);
+            panelBackground = new BackgroundImage(PanelBackgroundImagePath);
 
             cookieButton = new Sprite(new Texture("Assets/CookieButton.png"));
             cookieButton.Origin = new Vector2f(cookieButton.Texture.Size.X / 2, cookieButton.Texture.Size.Y / 2);
@@ -72,6 +76,12 @@ namespace Clicker.Game {
             perSecondText.Style = Text.Styles.Regular;
             perSecondText.Position = new Vector2f(25, 70);
 
+            // Prepare the status line
+            statusLine = new CenteredText("TEST TEST TEST TEST", font, 40);
+            statusLine.CenterX = true;
+            statusLine.CenterY = true;
+            statusLine.Color = Color.White;
+
             // Prepare the bonus panel
             pr.ReportProgress(0.50f, "Préparation des bonus...");
             bonusPanel = new BonusPanel(state, font);
@@ -81,7 +91,7 @@ namespace Clicker.Game {
             sound = new SoundManager();
 
             // Start playing the right track
-            if( state.Score < SCORE_WHERE_MUSIC_CHANGES )
+            if( state.Score < ScoreWhereMusicChanges )
                 sound.PlayTrack(0);
             else
                 sound.PlayTrack(1);
@@ -97,6 +107,12 @@ namespace Clicker.Game {
 
             // Reposition the bonus panel.
             bonusPanel.Layout(newSize);
+
+            // Recenter the status line
+            if( !statusLine.DisplayedString.Equals("") ){
+                statusLine.UpdateCentering(newSize.X, newSize.Y);
+                statusLine.SetYPosition(newSize.Y - 80);
+            }
 
             // The score indicators fall right in the top left corner, which
             // happens to be the origin of coordinates, so no need to update ;)
@@ -127,6 +143,17 @@ namespace Clicker.Game {
 
             if( scorePerSecond > 0 )
                 perSecondText.DisplayedString = "+" + NumberFormatter.Format(scorePerSecond) + " par seconde";
+
+            // Update the status line's animation
+            if( !statusLine.DisplayedString.Equals("") ) {
+                float w = 2 * MathF.PI * MusicBPM / 60.0f; // \omega = 2 * \pi * f
+                float factor = (MathF.Sin(w * time.t) + 1.0f) / 2;
+
+                Vector2f newScale = new Vector2f();
+                newScale.X = 1.0f + (factor - 0.6f) + 0.6f;
+                newScale.Y = 1.0f + (factor - 0.9f) + 0.9f;
+                statusLine.Scale = newScale;
+            }
         }
 
         public override void Render(RenderTarget rt){
@@ -138,6 +165,9 @@ namespace Clicker.Game {
             rt.Draw(cookieButton);
             rt.Draw(scoreText);
             rt.Draw(perSecondText);
+
+            if( !statusLine.DisplayedString.Equals("") )
+                rt.Draw(statusLine);
         }
 
         public override void Exit(){
