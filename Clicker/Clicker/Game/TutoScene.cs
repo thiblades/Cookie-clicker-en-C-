@@ -14,17 +14,17 @@ namespace Clicker.Game {
         public const string TITLE = "Tutoriel";
         public const uint TITLE_SIZE = 100;
         public const uint TITLE_MARGIN = 200;
-        public const string CREDIT = "L'objectif du jeu est d'obtenir le meilleur score en\n\tcliquant sur le verre qui se présente au centre de l'écran.\n"+
+        public const string TUTO = "L'objectif du jeu est d'obtenir le meilleur score en\n\tcliquant sur le verre qui se présente au centre de l'écran.\n"+
             "Vous pouvez utiliser des bonus afin de parvenir plus rapidement à votre objectif.\n"+"" +
             "N'oubliez pas que la consommation d'alcool est dangeureuse pour la santé.\n"+
             "Ne doit pas être consommé avec modération.";
-        public const uint CREDIT_SIZE = 35;
+        public const uint TUTO_SIZE = 35;
 
 
         private Font font;
         private BackgroundImage background;
         private CenteredText titleText;
-        private CenteredText creditText;
+        private CenteredText tutoText;
         private TimeAccumulator time = new TimeAccumulator();
 
         public Color titleColor;
@@ -40,10 +40,10 @@ namespace Clicker.Game {
 
             // Center all the items and the title horizontally
             titleText.UpdateCentering(newSize);
-            creditText.UpdateCentering(newSize);
+            tutoText.UpdateCentering(newSize);
 
             // Center the entire thing vertically
-            float fullHeight = titleText.Dimensions.Y + TITLE_MARGIN + creditText.Dimensions.Y;
+            float fullHeight = titleText.Dimensions.Y + TITLE_MARGIN + tutoText.Dimensions.Y;
             float yOffset = (newSize.Y - fullHeight) / 2;
 
             titleText.SetYPosition(yOffset);
@@ -68,18 +68,18 @@ namespace Clicker.Game {
             titleText.Color = titleColor;
             titleText.CenterX = true;
 
-            // Prepare the credit
-            creditText = new CenteredText(CREDIT, font, CREDIT_SIZE);
-            creditText.Color = titleColor;
-            creditText.CenterX = true;
-            creditText.CenterY = true;
+            // Prepare the tuto
+            tutoText = new CenteredText(TUTO, font, TUTO_SIZE);
+            tutoText.Color = titleColor;
+            tutoText.CenterX = true;
+            tutoText.CenterY = true;
         }
 
         public override void Render(RenderTarget rt)
         {
             background.Render(rt);
             rt.Draw(titleText);
-            rt.Draw(creditText);
+            rt.Draw(tutoText);
 
         }
 
